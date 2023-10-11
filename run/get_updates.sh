@@ -17,7 +17,17 @@ check_for_updates() {
         exit_no_commits
     fi
 
-    UPSTREAM_COMMIT_HASH=$(git rev-parse "upstream/${INPUT_UPSTREAM_SYNC_BRANCH}")
+    UPSTREAM_TARGET=""
+
+    if [ -n ${INPUT_UPSTREAM_SYNC_TAG} ]; then
+        GIT_CMD="rev-list -1"
+        UPSTREAM_TARGET="${INPUT_UPSTREAM_SYNC_TAG}"
+    else
+        GIT_CMD="rev-parse"
+        UPSTREAM_TARGET="upstream/${INPUT_UPSTREAM_SYNC_BRANCH}"
+    fi
+    UPSTREAM_COMMIT_HASH=$(git "${GIT_CMD} ${UPSTREAM_TARGET}")
+
 
     # check is latest upstream hash is in target branch
     git fetch --quiet --shallow-since="${INPUT_SHALLOW_SINCE}" origin "${INPUT_TARGET_SYNC_BRANCH}"

@@ -27,6 +27,10 @@ inputs:
     description: 'Branch to sync from, e.g. => main, master, dev'
     required: true
 
+  upstream_sync_tag:
+    description: 'tag to sync from, e.g. => 1.0, v3.7.4, featureA'
+    required: false
+
   target_branch_checkout_args:
     description: 'Any extra args to pass to `git checkout` on the source branch, e.g. --recurse-submodules :: default = ""'
     required: false
