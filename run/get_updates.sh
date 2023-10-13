@@ -4,7 +4,7 @@
 
 # check latest commit hashes for a match, exit if nothing to sync
 check_for_updates() {
-    write_out -1 'Checking for new commits on upstream branch.\n'
+    write_out -1 'Checking for new commits on upstream.\n'
 
     # fetch commits from upstream branch within given time frame (default 1 month)
     git fetch --quiet --shallow-since="${INPUT_SHALLOW_SINCE}" upstream "${INPUT_UPSTREAM_SYNC_BRANCH}"
@@ -21,6 +21,7 @@ check_for_updates() {
 
     if [ -n ${INPUT_UPSTREAM_SYNC_TAG} ]; then
         # Pull tags
+        write_out -1 'Fetching latest tags from upstream.\n'
         git fetch --quiet upstream --tags
         GIT_CMD="rev-list -1"
         UPSTREAM_TARGET="${INPUT_UPSTREAM_SYNC_TAG}"
