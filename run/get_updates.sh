@@ -23,13 +23,11 @@ check_for_updates() {
         # Pull tags
         write_out -1 'Fetching latest tags from upstream.\n'
         git fetch --quiet upstream --tags
-        GIT_CMD="rev-list -1"
         UPSTREAM_TARGET="${INPUT_UPSTREAM_SYNC_TAG}"
     else
-        GIT_CMD="rev-parse"
         UPSTREAM_TARGET="upstream/${INPUT_UPSTREAM_SYNC_BRANCH}"
     fi
-    UPSTREAM_COMMIT_HASH=$(git "${GIT_CMD} ${UPSTREAM_TARGET}")
+    UPSTREAM_COMMIT_HASH=$(git "rev-parse ${UPSTREAM_TARGET}")
 
 
     # check is latest upstream hash is in target branch
