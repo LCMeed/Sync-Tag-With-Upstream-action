@@ -20,6 +20,8 @@ check_for_updates() {
     UPSTREAM_TARGET=""
 
     if [ -n ${INPUT_UPSTREAM_SYNC_TAG} ]; then
+        # Pull tags
+        git fetch --quiet upstream --tags
         GIT_CMD="rev-list -1"
         UPSTREAM_TARGET="${INPUT_UPSTREAM_SYNC_TAG}"
     else
