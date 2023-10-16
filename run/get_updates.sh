@@ -22,7 +22,7 @@ check_for_updates() {
     if [ -n ${INPUT_UPSTREAM_SYNC_TAG} ]; then
         # Pull tags
         write_out -1 'Fetching latest tags from upstream.\n'
-        git fetch --quiet upstream --tags
+        git fetch --quiet --shallow-since="${INPUT_SHALLOW_SINCE}" upstream --tags
         UPSTREAM_TARGET="${INPUT_UPSTREAM_SYNC_TAG}"
     else
         UPSTREAM_TARGET="upstream/${INPUT_UPSTREAM_SYNC_BRANCH}"
