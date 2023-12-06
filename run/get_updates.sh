@@ -29,10 +29,10 @@ check_for_updates() {
     #     
     # fi
     if [ -n ${INPUT_UPSTREAM_SYNC_TAG} ]; then
-        UPSTREAM_COMMIT_HASH = $(git log --pretty='format:%H %D' | egrep ".{40} tag: "${INPUT_UPSTREAM_SYNC_TAG} | awk '{print $1}')
+        UPSTREAM_COMMIT_HASH=$(git log --pretty='format:%H %D' | egrep ".{40} tag: "${INPUT_UPSTREAM_SYNC_TAG} | awk '{print $1}')
     else
         UPSTREAM_TARGET="upstream/${INPUT_UPSTREAM_SYNC_BRANCH}"
-        UPSTREAM_COMMIT_HASH = $(git "rev-parse ${UPSTREAM_TARGET}")
+        UPSTREAM_COMMIT_HASH=$(git "rev-parse ${UPSTREAM_TARGET}")
     fi
 
 
