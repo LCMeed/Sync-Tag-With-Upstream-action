@@ -17,18 +17,23 @@ check_for_updates() {
         exit_no_commits
     fi
 
-    UPSTREAM_TARGET=""
+    # UPSTREAM_TARGET=""
 
+    # if [ -n ${INPUT_UPSTREAM_SYNC_TAG} ]; then
+    #     # Pull tags
+    #     write_out -1 'Fetching latest tags from upstream.\n'
+    #     git fetch --quiet --shallow-since="${INPUT_SHALLOW_SINCE}" upstream --tags
+    #     git tag
+    #     UPSTREAM_TARGET="${INPUT_UPSTREAM_SYNC_TAG}"
+    # else
+    #     
+    # fi
     if [ -n ${INPUT_UPSTREAM_SYNC_TAG} ]; then
-        # Pull tags
-        write_out -1 'Fetching latest tags from upstream.\n'
-        git fetch --quiet --shallow-since="${INPUT_SHALLOW_SINCE}" upstream --tags
-        git tag
-        UPSTREAM_TARGET="${INPUT_UPSTREAM_SYNC_TAG}"
+        UPSTREAM_COMMIT_HASH = $(git log --pretty='format:%H %D' | egrep ".{40} tag: "${INPUT_UPSTREAM_SYNC_TAG} | awk '{print $1}')
     else
         UPSTREAM_TARGET="upstream/${INPUT_UPSTREAM_SYNC_BRANCH}"
+        UPSTREAM_COMMIT_HASH = $(git "rev-parse ${UPSTREAM_TARGET}")
     fi
-    UPSTREAM_COMMIT_HASH=$(git "rev-parse ${UPSTREAM_TARGET}")
 
 
     # check is latest upstream hash is in target branch
